@@ -40,19 +40,16 @@ const sillySteps = (input)=>{
 				get(x+1, y-1) +
 				get(x-1, y+1);
 	}
-
-	let dx = 0, dy = -1;
-	let x = 0, y = 0;
-	while(1){
+	const nextStep = (x,y,dx,dy)=>{
 		const sum = getSurroundingSum(x,y);
 		if(sum > input) return sum;
 		set(x,y, sum);
 		if(x == y || (x < 0 && x == -y) || (x > 0 && x == 1-y)){
 			[dx, dy] = [-dy, dx];
 		}
-		x += dx;
-		y += dy;
+		return nextStep(x+dx, y+dy, dx, dy);
 	}
+	return nextStep(0,0,0,-1);
 }
 
 
